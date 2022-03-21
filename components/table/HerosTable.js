@@ -16,10 +16,12 @@ const HerosTable = ({ heros }) => {
           heros.map((hero, key) => {
             const date = new Date(hero.date);
             return (
-              <tr key={key}>
-                <td>{hero.name}</td>
+              <tr key={key} className="small">
+                <td className="fw-bold">{hero.name}</td>
                 <td>{hero.phone}</td>
-                <td>{hero.email}</td>
+                <td>
+                  <a href={`mailto:${hero.email}`}>{hero.email}</a>
+                </td>
                 <td>{`${date.toLocaleString("en-US", {
                   month: "long",
                 })} ${date.getDate()} -  ${date.getFullYear()}`}</td>

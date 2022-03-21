@@ -1,36 +1,34 @@
-import { useState, useEffect } from "react";
-
 import Navbar from "../components/Navbar";
 
-import HerosTable from "../components/HerosTable";
+import Table from "../components/table/Table";
+
+import Footer from "../components/Footer";
 
 const heros = () => {
-  const [heros, setHeros] = useState([]);
-
-  useEffect(() => {
-    async function getData() {
-      const response = await fetch("http://localhost:3000/api/heros");
-      const data = await response.json();
-
-      setHeros(data);
-    }
-
-    getData();
-  }, []);
-
   return (
     <div className="heros-page">
-      <div className="container-fluid bg-white shadow-sm p-0 mb-5">
+      {/* <HerosFilter /> */}
+
+      <div className="container-fluid bg-white shadow-sm mb-5">
         <div className="container">
           <Navbar />
         </div>
       </div>
-      <div className="container mt-5 mb-3">
-        <h2>Heros</h2>
+
+      <div className="body container-fluid position-relative ">
+        <div className="container mb-4">
+          <h2>Heros</h2>
+        </div>
+        <div className="container mb-5">
+          <div className="rounded-4 bg-white">
+            <Table />
+          </div>
+        </div>
       </div>
-      <div className="container mb-5">
-        <div className="p-5 rounded-4 bg-white shadow-sm">
-          <HerosTable heros={heros} />
+
+      <div className="container-fluid border-top bg-light">
+        <div className="container ">
+          <Footer />
         </div>
       </div>
     </div>

@@ -1,13 +1,23 @@
-/* Main Colors */
+/* Global Colors */
 :root {
   --night-blue: #140453;
   --light-green: #efe;
   --br: 10px; /* border radius */
 }
 
-/* Global classes */
+/* Global CSS and Bootstrap overrides*/
+.form-control:focus,
+.form-select:focus {
+  box-shadow: none;
+}
+
+/* Global Classes */
 .rounded-4 {
   border-radius: var(--br);
+}
+
+.bg-nb {
+  background-color: var(--night-blue);
 }
 
 /* Home Page */
@@ -23,6 +33,17 @@
     Dashboard Page 
 *************************/
 
+/* Filter */
+.heros-filter-form {
+  transition: all 0.5s;
+  overflow: hidden;
+}
+
+.heros-filter-form.collapsed {
+  height: 0px !important;
+}
+
+/* Table */
 .table thead th {
   background-color: var(--light-green);
   border: none;
