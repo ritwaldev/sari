@@ -1,16 +1,57 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+/* Main Colors */
+:root {
+  --night-blue: #140453;
+  --light-green: #efe;
+  --br: 10px; /* border radius */
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* Global classes */
+.rounded-4 {
+  border-radius: var(--br);
 }
 
-* {
-  box-sizing: border-box;
+/* Home Page */
+.home-page {
+  background-color: var(--night-blue);
+}
+
+.welcome-message {
+  max-width: 400px;
+}
+
+/*************************
+    Dashboard Page 
+*************************/
+
+.table thead th {
+  background-color: var(--light-green);
+  border: none;
+}
+
+.table thead th:first-child {
+  border-radius: var(--br) 0 0 var(--br);
+}
+
+.table thead th:last-child {
+  border-radius: 0 var(--br) var(--br) 0;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.table {
+  border-color: var(--bs-light);
+}
+
+.table tr {
+  border-color: #e3e3e3;
+}
+
+.table > :not(caption) > * > * {
+  padding: 1.4rem 1.4rem;
+}
+
+.table > :not(:first-child) {
+  border: none;
 }
