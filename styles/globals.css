@@ -7,8 +7,10 @@
 
 /* Global CSS and Bootstrap overrides*/
 .form-control:focus,
-.form-select:focus {
-  box-shadow: none;
+.form-select:focus,
+.btn:focus,
+.btn:active {
+  box-shadow: none !important;
 }
 
 /* Global Classes */
@@ -34,6 +36,17 @@
 *************************/
 
 /* Filter */
+.filter-button svg path {
+  transform: rotate(180deg);
+  transform-origin: 50%;
+  transition: all 0.5s;
+}
+
+.filter-button svg.collapsed path {
+  transform: rotate(0deg);
+  transform-origin: 50%;
+}
+
 .heros-filter-form {
   transition: all 0.5s;
   overflow: hidden;

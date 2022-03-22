@@ -1,8 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import HerosFilterForm from "./HerosFilterForm";
 
-const HerosFilter = () => {
+const HerosFilter = ({
+  handleFilters,
+  filters /* handleFilterFormSubmit, */,
+  handleResetFilters,
+}) => {
   const [filterCollapsed, setFilterCollapsed] = useState(true);
 
   const [formHeight, setFormHeight] = useState(false);
@@ -33,12 +37,12 @@ const HerosFilter = () => {
         </div>
 
         <button
-          className="btn d-flex align-items-center text-white bg-nb rounded-3"
+          className="filter-button btn d-flex align-items-center text-white bg-nb rounded-3"
           onClick={handleCollapsingFilter}
         >
           Filter
           <svg
-            className="ms-3"
+            className={`ms-3 ${filterCollapsed ? "collapsed" : ""}`}
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -54,7 +58,13 @@ const HerosFilter = () => {
         className={`heros-filter-form ${filterCollapsed ? "collapsed" : ""}`}
         style={{ height: formHeight }}
       >
-        <HerosFilterForm handleFormHeight={handleFormHeight} />
+        <HerosFilterForm
+          handleFormHeight={handleFormHeight}
+          filters={filters}
+          handleFilters={handleFilters}
+          /*  handleFilterFormSubmit={handleFilterFormSubmit} */
+          handleResetFilters={handleResetFilters}
+        />
       </div>
     </div>
   );

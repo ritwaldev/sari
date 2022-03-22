@@ -4,7 +4,7 @@ import Table from "../components/table/Table";
 
 import Footer from "../components/Footer";
 
-const heros = () => {
+const heros = ({ query }) => {
   return (
     <div className="heros-page">
       {/* <HerosFilter /> */}
@@ -21,7 +21,7 @@ const heros = () => {
         </div>
         <div className="container mb-5">
           <div className="rounded-4 bg-white">
-            <Table />
+            <Table query={query} />
           </div>
         </div>
       </div>
@@ -36,3 +36,16 @@ const heros = () => {
 };
 
 export default heros;
+
+/* export async function getServerSideProps(context, query) {
+  console.log(query);
+  return {
+    props: { query },
+  };
+} */
+
+export const getServerSideProps = async ({ req, query }) => {
+  return {
+    props: { query },
+  };
+};

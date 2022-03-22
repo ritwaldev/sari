@@ -19,7 +19,7 @@ export default function handler(req, res) {
     {
       title: "country",
       type: "dropdown",
-      api: "http://countryapi.gear.host/v1/Country/getCountries?pLimit=25&pPage=1",
+      api: "http://localhost:3000/api/countries",
       multiple: false,
     },
     {
