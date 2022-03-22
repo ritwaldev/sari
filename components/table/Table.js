@@ -20,19 +20,24 @@ const Table = ({ query }) => {
     date: "any",
   });
 
-  // Fetch all heros from backend on page load and update heros and filteredHeros states ..
+  // Fetch all heros from backend on page load and update heros states ..
   useEffect(() => {
     async function getData() {
       const response = await fetch("http://localhost:3000/api/heros");
       const data = await response.json();
       setHeros(data);
-      setFilteredHeros(data);
     }
 
     getData();
-
-    handleQuery(query);
   }, []);
+
+  useEffect(() => {
+    handleQuery(query);
+
+    if (!query) {
+      setFilteredHeros(heros);
+    }
+  }, [heros]);
 
   function handleQuery(newQuery) {
     setFilters({

@@ -6,6 +6,12 @@
 }
 
 /* Global CSS and Bootstrap overrides*/
+
+/* always keep scrollbar, this is to prevent screen for jogging when the scrollbar disappears from too little data on the Heros table. */
+html {
+  overflow-y: scroll;
+}
+
 .form-control:focus,
 .form-select:focus,
 .btn:focus,
