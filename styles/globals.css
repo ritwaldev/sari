@@ -1,7 +1,7 @@
 /* Global Colors */
 :root {
   --night-blue: #140453;
-  --light-green: #efe;
+  --purple: #705aca;
   --br: 10px; /* border radius */
 }
 
@@ -64,7 +64,7 @@ html {
 
 /* Table */
 .table thead th {
-  background-color: var(--light-green);
+  background-color: var(--purple);
   border: none;
 }
 
@@ -94,4 +94,13 @@ html {
 
 .table > :not(:first-child) {
   border: none;
+}
+
+/* Active Tabs */
+.active-filters {
+  overflow: hidden;
+}
+
+.active-filters .badge {
+  white-space: nowrap;
 }

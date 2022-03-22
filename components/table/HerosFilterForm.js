@@ -13,9 +13,13 @@ const HerosFilterForm = ({
 
   const herosFilterForm = useRef();
 
+  const countrySelect = useRef();
+
   useEffect(() => {
     async function fetchConfig() {
-      const response = await fetch("/api/filter-config");
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_SITE_URL + "/api/filter-config"
+      );
       const config = await response.json();
 
       setFormConfig(config);
@@ -23,7 +27,15 @@ const HerosFilterForm = ({
       // get height of drop filter
       updateFromHeight();
     }
-    fetchConfig();
+
+    async function runFetchConfig() {
+      try {
+        await fetchConfig();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    runFetchConfig();
   }, []);
 
   function updateFromHeight() {
@@ -64,6 +76,7 @@ const HerosFilterForm = ({
                 )}
                 {field.type === "dropdown" && (
                   <Countries
+                    countrySelect={countrySelect}
                     title={field.title}
                     type={field.type}
                     api={field.api}
@@ -82,7 +95,12 @@ const HerosFilterForm = ({
       </div> */}
 
       <div className="reset-filter text-end">
-        <button className="btn btn-danger" onClick={handleResetFilters}>
+        <button
+          className="btn btn-danger"
+          onClick={(e) => {
+            handleResetFilters(e, countrySelect);
+          }}
+        >
           Reset filters
         </button>
       </div>

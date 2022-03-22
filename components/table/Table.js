@@ -17,15 +17,29 @@ const Table = ({ query }) => {
 
   const [queryParams, setQueryParams] = useState({});
 
+  const [loadingData, setLoadingData] = useState(false);
+
   // Fetch all heros from backend on page load and update heros states ..
   useEffect(() => {
-    async function getData() {
-      const response = await fetch("http://localhost:3000/api/heros");
+    async function fetchData() {
+      setLoadingData(true);
+      const response = await fetch(
+        process.env.NEXT_PUBLIC_SITE_URL + "/api/heros"
+      );
       const data = await response.json();
       setHeros(data);
     }
 
-    getData();
+    async function runFetchData() {
+      try {
+        await fetchData();
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoadingData(false);
+      }
+    }
+    runFetchData();
   }, []);
 
   useEffect(() => {
@@ -79,7 +93,7 @@ const Table = ({ query }) => {
 
     setFilters({ ...filters, [name]: value });
 
-    setQueryParams({ ...queryParams, [name]: value });
+    setQueryParams({ ...queryParams, [name]: value.toLowerCase() });
   }
 
   // Fires when filters state change, filters and updates the filteredHeros state
@@ -103,7 +117,7 @@ const Table = ({ query }) => {
   }, [filters]);
 
   // Fires on reset filters button click
-  function handleResetFilters(e) {
+  function handleResetFilters(e, countrySelect) {
     e.preventDefault();
 
     const resetFilters = {
@@ -114,6 +128,9 @@ const Table = ({ query }) => {
       country: "",
       date: "",
     };
+
+    // reset selection idex
+    countrySelect.current.selectedIndex = 0;
 
     setFilters(resetFilters);
     setQueryParams({});
@@ -127,7 +144,7 @@ const Table = ({ query }) => {
         /* handleFilterFormSubmit={handleFilterFormSubmit} */
         handleResetFilters={handleResetFilters}
       />
-      <HerosTable filteredHeros={filteredHeros} />
+      <HerosTable filteredHeros={filteredHeros} loadingData={loadingData} />
     </>
   );
 };

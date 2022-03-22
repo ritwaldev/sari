@@ -19,7 +19,7 @@ export default function handler(req, res) {
     {
       title: "Country",
       type: "dropdown",
-      api: "http://localhost:3000/api/countries",
+      api: process.env.NEXT_PUBLIC_SITE_URL + "/api/countries",
       multiple: false,
     },
     {

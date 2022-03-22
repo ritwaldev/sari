@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ActiveFiltersTabs from "./ActiveFiltersTabs";
 
 import HerosFilterForm from "./HerosFilterForm";
 
@@ -22,19 +23,7 @@ const HerosFilter = ({
   return (
     <div className="filter bg-light rounded-4 p-3 my-3">
       <div className="filter-header d-flex justify-content-between align-items-center">
-        <div className="search">
-          <form className="d-flex">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button className="btn btn-outline-primary me-3" type="submit">
-              Search
-            </button>
-          </form>
-        </div>
+        <ActiveFiltersTabs filters={filters} />
 
         <button
           className="filter-button btn d-flex align-items-center text-white bg-nb rounded-3"

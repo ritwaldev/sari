@@ -1,24 +1,39 @@
 import { useState, useEffect } from "react";
 
-const Countries = ({ title, type, api, value, handleFilters }) => {
+const Countries = ({
+  title,
+  type,
+  api,
+  value,
+  handleFilters,
+  countrySelect,
+}) => {
   const [countries, setCountries] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("http://localhost:3000/api/countries");
+      const response = await fetch(api);
 
       const data = await response.json();
 
       setCountries(data);
     }
 
-    fetchData();
+    async function runFetchData() {
+      try {
+        await fetchData();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    runFetchData();
   }, []);
 
   return (
     <>
       <label className="form-label">{title}</label>
       <select
+        ref={countrySelect}
         defaultValue={value}
         className="form-select"
         name={title.toLowerCase()}
@@ -29,7 +44,8 @@ const Countries = ({ title, type, api, value, handleFilters }) => {
         {countries.length > 1 &&
           countries.map((country, key) => {
             return (
-              <option key={key} value={country.alpha3Code}>
+              // Should use country.alpha3Code as value instead, need to lift the countries state up to Table.js since alpha3Code isn't available there to filter heros based on.
+              <option key={key} value={country.name}>
                 {country.name}
               </option>
             );
