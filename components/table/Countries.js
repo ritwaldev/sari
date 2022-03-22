@@ -1,4 +1,4 @@
-import { useState, useEffect, handleFilters } from "react";
+import { useState, useEffect } from "react";
 
 const Countries = ({ title, type, api, value, handleFilters }) => {
   const [countries, setCountries] = useState([]);
@@ -21,11 +21,11 @@ const Countries = ({ title, type, api, value, handleFilters }) => {
       <select
         defaultValue={value}
         className="form-select"
-        name={title}
+        name={title.toLowerCase()}
         onChange={handleFilters}
       >
         <option value={value}>{value}</option>
-        <option value="all">Any</option>
+
         {countries.length > 1 &&
           countries.map((country, key) => {
             return (

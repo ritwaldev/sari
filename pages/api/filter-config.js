@@ -17,7 +17,7 @@ export default function handler(req, res) {
       type: "text",
     },
     {
-      title: "country",
+      title: "Country",
       type: "dropdown",
       api: "http://localhost:3000/api/countries",
       multiple: false,

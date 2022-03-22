@@ -7,8 +7,6 @@ import Footer from "../components/Footer";
 const heros = ({ query }) => {
   return (
     <div className="heros-page">
-      {/* <HerosFilter /> */}
-
       <div className="container-fluid bg-white shadow-sm mb-5">
         <div className="container">
           <Navbar />
@@ -36,13 +34,6 @@ const heros = ({ query }) => {
 };
 
 export default heros;
-
-/* export async function getServerSideProps(context, query) {
-  console.log(query);
-  return {
-    props: { query },
-  };
-} */
 
 export const getServerSideProps = async ({ req, query }) => {
   return {

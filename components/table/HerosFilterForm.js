@@ -21,11 +21,21 @@ const HerosFilterForm = ({
       setFormConfig(config);
 
       // get height of drop filter
-      const height = herosFilterForm.current.offsetHeight;
-
-      handleFormHeight(height);
+      updateFromHeight();
     }
     fetchConfig();
+  }, []);
+
+  function updateFromHeight() {
+    // get height of dropdown filter
+    const height = herosFilterForm.current.offsetHeight;
+
+    handleFormHeight(height);
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", updateFromHeight);
+    return () => window.removeEventListener("resize", updateFromHeight);
   }, []);
 
   return (
@@ -57,7 +67,7 @@ const HerosFilterForm = ({
                     title={field.title}
                     type={field.type}
                     api={field.api}
-                    value={filters[field.title.toLowerCase()]}
+                    value={filters[field.title]}
                     handleFilters={handleFilters}
                   />
                 )}

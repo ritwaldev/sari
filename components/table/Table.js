@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import HerosTable from "./HerosTable";
 import HerosFilter from "./HerosFilter";
 
+const allowedFilters = ["email", "phone", "name", "company", "country", "date"];
+
 const Table = ({ query }) => {
   const router = useRouter();
 
@@ -11,14 +13,9 @@ const Table = ({ query }) => {
 
   const [filteredHeros, setFilteredHeros] = useState([]);
 
-  const [filters, setFilters] = useState({
-    email: "any",
-    phone: "any",
-    name: "any",
-    company: "any",
-    country: "any",
-    date: "any",
-  });
+  const [filters, setFilters] = useState({});
+
+  const [queryParams, setQueryParams] = useState({});
 
   // Fetch all heros from backend on page load and update heros states ..
   useEffect(() => {
@@ -39,33 +36,62 @@ const Table = ({ query }) => {
     }
   }, [heros]);
 
-  function handleQuery(newQuery) {
+  // Handle initial query params
+  function handleQuery(query) {
+    let newQuery = {};
+    for (let property in query) {
+      if (allowedFilters.includes(property)) {
+        newQuery = { ...newQuery, [property]: query[property] };
+      }
+    }
+
+    setQueryParams(newQuery);
+
     setFilters({
-      email: newQuery?.email || "any",
-      phone: newQuery?.phone || "any",
-      name: newQuery?.name || "any",
-      company: newQuery?.company || "any",
-      country: newQuery?.country || "any",
-      date: newQuery?.date || "any",
+      email: newQuery?.email || "",
+      phone: newQuery?.phone || "",
+      name: newQuery?.name || "",
+      company: newQuery?.company || "",
+      country: newQuery?.country || "",
+      date: newQuery?.date || "",
     });
   }
 
-  // Fires on filters input change, updates filters state and query params
+  // Fires when queryParams state updates
+  useEffect(() => {
+    // Git rid of empty filters
+    let newQueryParams = {};
+    for (let property in queryParams) {
+      if (queryParams[property] !== "") {
+        newQueryParams = {
+          ...newQueryParams,
+          [property]: queryParams[property],
+        };
+      }
+    }
+
+    router.push({ query: newQueryParams });
+  }, [queryParams]);
+
+  // Fires on filters input change, updates filters state and queryParams state
   function handleFilters(e) {
     const { name, value } = e.target;
+
     setFilters({ ...filters, [name]: value });
-    router.push({
-      query: { ...filters, [name]: value },
-    });
+
+    setQueryParams({ ...queryParams, [name]: value });
   }
 
   // Fires when filters state change, filters and updates the filteredHeros state
   useEffect(() => {
     const tempFilteredHeros = heros.filter((hero) => {
       for (let property in filters) {
+        const heroProperty = hero[property]?.toLowerCase();
+        const filterProperty = filters[property]?.toLowerCase();
+
         if (
           hero[property] === undefined ||
-          (hero[property] !== filters[property] && filters[property] !== "any")
+          (!heroProperty.includes(filterProperty) && filterProperty !== "")
         ) {
           return false;
         }
@@ -81,18 +107,16 @@ const Table = ({ query }) => {
     e.preventDefault();
 
     const resetFilters = {
-      email: "any",
-      phone: "any",
-      name: "any",
-      company: "any",
-      country: "any",
-      date: "any",
+      email: "",
+      phone: "",
+      name: "",
+      company: "",
+      country: "",
+      date: "",
     };
 
     setFilters(resetFilters);
-    router.push({
-      query: resetFilters,
-    });
+    setQueryParams({});
   }
 
   return (
