@@ -3,11 +3,7 @@ import ActiveFiltersTabs from "./ActiveFiltersTabs";
 
 import HerosFilterForm from "./HerosFilterForm";
 
-const HerosFilter = ({
-  handleFilters,
-  filters /* handleFilterFormSubmit, */,
-  handleResetFilters,
-}) => {
+const HerosFilter = ({ heros, handleFilters, filters, handleResetFilters }) => {
   const [filterCollapsed, setFilterCollapsed] = useState(true);
 
   const [formHeight, setFormHeight] = useState(false);
@@ -16,6 +12,7 @@ const HerosFilter = ({
     setFilterCollapsed((prev) => !prev);
   }
 
+  // This stores filter form height on screen in a state. Needed to do height transition.
   function handleFormHeight(height) {
     setFormHeight(height);
   }
@@ -48,10 +45,10 @@ const HerosFilter = ({
         style={{ height: formHeight }}
       >
         <HerosFilterForm
+          heros={heros}
           handleFormHeight={handleFormHeight}
           filters={filters}
           handleFilters={handleFilters}
-          /*  handleFilterFormSubmit={handleFilterFormSubmit} */
           handleResetFilters={handleResetFilters}
         />
       </div>

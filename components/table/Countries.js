@@ -1,13 +1,6 @@
 import { useState, useEffect } from "react";
 
-const Countries = ({
-  title,
-  type,
-  api,
-  value,
-  handleFilters,
-  countrySelect,
-}) => {
+const Countries = ({ title, api, value, handleFilters, countrySelectRef }) => {
   const [countries, setCountries] = useState([]);
 
   useEffect(() => {
@@ -33,7 +26,7 @@ const Countries = ({
     <>
       <label className="form-label">{title}</label>
       <select
-        ref={countrySelect}
+        ref={countrySelectRef}
         defaultValue={value}
         className="form-select"
         name={title.toLowerCase()}
@@ -41,15 +34,14 @@ const Countries = ({
       >
         <option value={value}>{value}</option>
 
-        {countries.length > 1 &&
-          countries.map((country, key) => {
-            return (
-              // Should use country.alpha3Code as value instead, need to lift the countries state up to Table.js since alpha3Code isn't available there to filter heros based on.
-              <option key={key} value={country.name}>
-                {country.name}
-              </option>
-            );
-          })}
+        {countries.map((country, key) => {
+          return (
+            // Should use country.alpha3Code as value instead, need to lift the countries state up to Table.js since alpha3Code isn't available there to filter heros based on it.
+            <option key={key} value={country.name}>
+              {country.name}
+            </option>
+          );
+        })}
       </select>
     </>
   );

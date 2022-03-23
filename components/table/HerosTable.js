@@ -14,24 +14,23 @@ const HerosTable = ({ filteredHeros, loadingData }) => {
             </tr>
           </thead>
           <tbody>
-            {filteredHeros.length > 0 &&
-              filteredHeros.map((hero, key) => {
-                const date = new Date(hero.date);
-                return (
-                  <tr key={key} className="small">
-                    <td className="fw-bold">{hero.name}</td>
-                    <td>{hero.phone}</td>
-                    <td>
-                      <a href={`mailto:${hero.email}`}>{hero.email}</a>
-                    </td>
-                    <td>{`${date.toLocaleString("en-US", {
-                      month: "long",
-                    })} ${date.getDate()} -  ${date.getFullYear()}`}</td>
-                    <td>{hero.country}</td>
-                    <td>{hero.company}</td>
-                  </tr>
-                );
-              })}
+            {filteredHeros.map((hero, key) => {
+              const date = new Date(hero.date);
+              return (
+                <tr key={key} className="small">
+                  <td className="fw-bold">{hero.name}</td>
+                  <td>{hero.phone}</td>
+                  <td>
+                    <a href={`mailto:${hero.email}`}>{hero.email}</a>
+                  </td>
+                  <td>{`${date.toLocaleString("en-US", {
+                    month: "long",
+                  })} ${date.getDate()} -  ${date.getFullYear()}`}</td>
+                  <td>{hero.country}</td>
+                  <td>{hero.company}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -44,7 +43,7 @@ const HerosTable = ({ filteredHeros, loadingData }) => {
 
       {loadingData && (
         <div className="p-3 d-flex justify-content-center">
-          <div className="spinner-border text-primary" role="status"></div>
+          <div className="spinner-border text-primary"></div>
         </div>
       )}
     </>

@@ -28,15 +28,6 @@ html {
   background-color: var(--night-blue);
 }
 
-/* Home Page */
-.home-page {
-  background-color: var(--night-blue);
-}
-
-.welcome-message {
-  max-width: 400px;
-}
-
 /*************************
     Dashboard Page 
 *************************/

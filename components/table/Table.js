@@ -19,7 +19,7 @@ const Table = ({ query }) => {
 
   const [loadingData, setLoadingData] = useState(false);
 
-  // Fetch all heros from backend on page load and update heros states ..
+  // Fetch all heros from backend on page load and update heros state ..
   useEffect(() => {
     async function fetchData() {
       setLoadingData(true);
@@ -34,6 +34,7 @@ const Table = ({ query }) => {
       try {
         await fetchData();
       } catch (e) {
+        // should set a state with error and use that state to display an error message
         console.error(e);
       } finally {
         setLoadingData(false);
@@ -42,6 +43,7 @@ const Table = ({ query }) => {
     runFetchData();
   }, []);
 
+  // Handle query params on first page load
   useEffect(() => {
     handleQuery(query);
 
@@ -53,9 +55,9 @@ const Table = ({ query }) => {
   // Handle initial query params
   function handleQuery(query) {
     let newQuery = {};
-    for (let property in query) {
-      if (allowedFilters.includes(property)) {
-        newQuery = { ...newQuery, [property]: query[property] };
+    for (let key in query) {
+      if (allowedFilters.includes(key)) {
+        newQuery = { ...newQuery, [key]: query[key] };
       }
     }
 
@@ -75,11 +77,11 @@ const Table = ({ query }) => {
   useEffect(() => {
     // Git rid of empty filters
     let newQueryParams = {};
-    for (let property in queryParams) {
-      if (queryParams[property] !== "") {
+    for (let key in queryParams) {
+      if (queryParams[key] !== "") {
         newQueryParams = {
           ...newQueryParams,
-          [property]: queryParams[property],
+          [key]: queryParams[key],
         };
       }
     }
@@ -99,12 +101,13 @@ const Table = ({ query }) => {
   // Fires when filters state change, filters and updates the filteredHeros state
   useEffect(() => {
     const tempFilteredHeros = heros.filter((hero) => {
-      for (let property in filters) {
-        const heroProperty = hero[property]?.toLowerCase();
-        const filterProperty = filters[property]?.toLowerCase();
+      for (let key in filters) {
+        // normalize to lowercase to be able to match without case sensitivity
+        const heroProperty = hero[key]?.toLowerCase();
+        const filterProperty = filters[key]?.toLowerCase();
 
         if (
-          hero[property] === undefined ||
+          hero[key] === undefined ||
           (!heroProperty.includes(filterProperty) && filterProperty !== "")
         ) {
           return false;
@@ -117,7 +120,7 @@ const Table = ({ query }) => {
   }, [filters]);
 
   // Fires on reset filters button click
-  function handleResetFilters(e, countrySelect) {
+  function handleResetFilters(e, countrySelectRef) {
     e.preventDefault();
 
     const resetFilters = {
@@ -129,8 +132,8 @@ const Table = ({ query }) => {
       date: "",
     };
 
-    // reset selection idex
-    countrySelect.current.selectedIndex = 0;
+    // reset selection index
+    countrySelectRef.current.selectedIndex = 0;
 
     setFilters(resetFilters);
     setQueryParams({});
@@ -139,9 +142,9 @@ const Table = ({ query }) => {
   return (
     <>
       <HerosFilter
+        heros={heros}
         filters={filters}
         handleFilters={handleFilters}
-        /* handleFilterFormSubmit={handleFilterFormSubmit} */
         handleResetFilters={handleResetFilters}
       />
       <HerosTable filteredHeros={filteredHeros} loadingData={loadingData} />

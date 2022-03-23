@@ -6,19 +6,28 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    let APIresponse;
+    const countries = data.map((country) => {
+      return {
+        name: country.name,
+        alpha3Code: country.alpha3Code,
+      };
+    });
 
-    if (Object.keys(req.query).length === 0) {
-      APIresponse = data.map((country) => {
-        return {
-          name: country.name,
-          alpha3Code: country.alpha3Code,
-        };
-      });
-    }
+    const startIndex = (req.query.pPage - 1) * req.query.pLimit || 0;
+    const endIndex = req.query.pPage * req.query.pLimit || 300;
 
-    res.status(200).json(APIresponse);
+    const paginatedCountries = countries.slice(startIndex, endIndex);
+
+    res.status(200).json(paginatedCountries);
   }
 
-  await fetchData();
+  async function runFetchData() {
+    try {
+      await fetchData();
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  await runFetchData();
 }

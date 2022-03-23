@@ -1,32 +1,42 @@
-import Head from "next/head";
-import Link from "next/link";
+import Navbar from "../components/Navbar";
 
-export default function Home() {
+import Table from "../components/table/Table";
+
+import Footer from "../components/Footer";
+
+const heros = ({ query }) => {
   return (
-    <div>
-      <Head>
-        <title>United Nations Super Heroes Fund</title>
-        <meta
-          name="description"
-          content="A simple dashboard for managing heros"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div className="heros-page">
+      <div className="container-fluid bg-white shadow-sm mb-5">
+        <div className="container">
+          <Navbar />
+        </div>
+      </div>
 
-      <div className="home-page">
-        <div className="container vh-100 d-flex justify-content-center align-items-center text-white">
-          <div className="text-center">
-            <h2 className="welcome-message mb-3">
-              Welcome to the United Nations Super Heroes Fund dashboard
-            </h2>
-            <Link href="/heros">
-              <a className="btn btn-primary">Dashboard</a>
-            </Link>
+      <div className="body container-fluid position-relative ">
+        <div className="container mb-4">
+          <h2>Heros</h2>
+        </div>
+        <div className="container mb-5">
+          <div className="rounded-4 bg-white">
+            <Table query={query} />
           </div>
         </div>
       </div>
 
-      <footer></footer>
+      <div className="container-fluid border-top bg-light">
+        <div className="container ">
+          <Footer />
+        </div>
+      </div>
     </div>
   );
-}
+};
+
+export default heros;
+
+export const getServerSideProps = async ({ req, query }) => {
+  return {
+    props: { query },
+  };
+};
