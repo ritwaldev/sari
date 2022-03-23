@@ -30,6 +30,8 @@ This project was built using [React.js](https://reactjs.org/), [Next.js](https:/
 
 # Notes
 
+- I added the use of Context APi in the [with-context-api](https://github.com/ritwaldev/sari/tree/with-context-api), it is an exact replica of the main branch, just with the use of Context API to share the hero state with children components. Please do check it out if you are interested.
+
 - [https://github.com/fabian7593/CountryAPI](https://github.com/fabian7593/CountryAPI) was down at the time of building this project. I uploaded [their data](https://github.com/fabian7593/CountryAPI/blob/master/Files/Data/json%202.txt) directly to the project and used Next.js API to fetch date from file in the backend.
 
 - One thing I wanted to add is a horizontal scrollbar on the top of the Heros table to make it easier for mobile users to know the table is horizontally scrollable. However, I imagine something like that would be out of the scope of this test.
