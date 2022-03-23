@@ -54,6 +54,11 @@ html {
 }
 
 /* Table */
+
+.hero-name-table-header svg {
+  cursor: pointer;
+}
+
 .table thead th {
   background-color: var(--purple);
   border: none;

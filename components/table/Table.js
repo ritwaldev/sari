@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import HerosTable from "./HerosTable";
 import HerosFilter from "./HerosFilter";
+
+export const herosContext = React.createContext();
 
 const allowedFilters = ["email", "phone", "name", "company", "country", "date"];
 
@@ -11,7 +13,11 @@ const Table = ({ query }) => {
 
   const [heros, setHeros] = useState([]);
 
+  const [sortedHeros, setSortedHeros] = useState([]);
+
   const [filteredHeros, setFilteredHeros] = useState([]);
+
+  const [sortingDirection, setSortingDirection] = useState(true);
 
   const [filters, setFilters] = useState({});
 
@@ -46,6 +52,8 @@ const Table = ({ query }) => {
   // Handle query params on first page load
   useEffect(() => {
     handleQuery();
+
+    setSortedHeros(heros);
 
     if (!query) {
       setFilteredHeros(heros);
@@ -100,7 +108,7 @@ const Table = ({ query }) => {
 
   // Fires when filters state change, filters and updates the filteredHeros state
   useEffect(() => {
-    const tempFilteredHeros = heros.filter((hero) => {
+    const tempFilteredHeros = sortedHeros.filter((hero) => {
       for (let key in filters) {
         // normalize to lowercase to be able to match without case sensitivity
         const heroProperty = hero[key]?.toLowerCase();
@@ -117,7 +125,7 @@ const Table = ({ query }) => {
     });
 
     setFilteredHeros(tempFilteredHeros);
-  }, [filters]);
+  }, [filters, sortedHeros]);
 
   // Fires on reset filters button click
   function handleResetFilters(e, countrySelectRef) {
@@ -139,15 +147,43 @@ const Table = ({ query }) => {
     setQueryParams({});
   }
 
+  // sort heros by name
+  function sortHeros() {
+    const tempSortedHeros = [...sortedHeros].sort((a, b) => {
+      let an = a.name.toLowerCase();
+      let bn = b.name.toLowerCase();
+
+      if ((an < bn && !sortingDirection) || (an > bn && sortingDirection)) {
+        return 1;
+      }
+      if ((an > bn && !sortingDirection) || (an > bn && sortingDirection)) {
+        return -1;
+      }
+      return 0;
+    });
+
+    console.log(tempSortedHeros);
+
+    setSortingDirection((sortDir) => !sortDir);
+
+    setSortedHeros(tempSortedHeros);
+  }
+
   return (
     <>
-      <HerosFilter
-        heros={heros}
-        filters={filters}
-        handleFilters={handleFilters}
-        handleResetFilters={handleResetFilters}
+      <herosContext.Provider value={heros}>
+        <HerosFilter
+          filters={filters}
+          handleFilters={handleFilters}
+          handleResetFilters={handleResetFilters}
+        />
+      </herosContext.Provider>
+      <HerosTable
+        filteredHeros={filteredHeros}
+        loadingData={loadingData}
+        sortHeros={sortHeros}
+        sortingDirection={sortingDirection}
       />
-      <HerosTable filteredHeros={filteredHeros} loadingData={loadingData} />
     </>
   );
 };

@@ -3,7 +3,7 @@ import ActiveFiltersTabs from "./ActiveFiltersTabs";
 
 import HerosFilterForm from "./HerosFilterForm";
 
-const HerosFilter = ({ heros, handleFilters, filters, handleResetFilters }) => {
+const HerosFilter = ({ handleFilters, filters, handleResetFilters }) => {
   const [filterCollapsed, setFilterCollapsed] = useState(true);
 
   const [formHeight, setFormHeight] = useState(false);
@@ -45,7 +45,6 @@ const HerosFilter = ({ heros, handleFilters, filters, handleResetFilters }) => {
         style={{ height: formHeight }}
       >
         <HerosFilterForm
-          heros={heros}
           handleFormHeight={handleFormHeight}
           filters={filters}
           handleFilters={handleFilters}

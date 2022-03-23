@@ -6,13 +6,13 @@ export default function handler(req, res) {
     {
       name: "Ahmed Khalid",
       phone: "(966) 541-5441",
-      email: "ahmed.khalid@sari.com",
+      email: "ahmed.khalid@sary.com",
       date: "2019-10-21T07:28:31.351Z",
       country: "Saudi Arabia",
-      company: "Sari",
+      company: "Sary",
     },
     {
-      name: "Abdullah Alghamdi",
+      name: "Omar Alghamdi",
       phone: "(452) 231-5465",
       email: "abdullah.alghamdi@test.com",
       date: "2002-11-10T09:53:12.383Z",
@@ -20,20 +20,12 @@ export default function handler(req, res) {
       company: "Google",
     },
     {
-      name: "Ahmed Rayyan",
-      phone: "(966) 541-5441",
-      email: "ahmed.rayyan@noon.com",
-      date: "2019-03-16T01:09:56.936Z",
-      country: "Saudi Arabia",
-      company: "Noon",
-    },
-    {
       name: "Nora Saad",
       phone: "(584) 925-6524",
-      email: "nora.khalid@sari.com",
+      email: "nora.khalid@sary.com",
       date: "2006-05-27T10:43:29.787Z",
       country: "Algeria",
-      company: "Sari",
+      company: "Sary",
     },
     {
       name: "Stephen John",
@@ -70,10 +62,10 @@ export default function handler(req, res) {
     {
       name: "Ashraf",
       phone: "(546) 214-1445",
-      email: "ashraf@sari.com",
+      email: "ashraf@sary.com",
       date: "2007-06-28T19:44:26.503Z",
       country: "Saudi Arabia",
-      company: "Sari",
+      company: "Sary",
     },
     {
       name: "Nora Jamal",
@@ -234,6 +226,14 @@ export default function handler(req, res) {
       date: "2019-07-30T04:21:15.600Z",
       country: "Ethiopia",
       company: "Sawayn - Collins",
+    },
+    {
+      name: "Ahmed Rayyan",
+      phone: "(966) 541-5441",
+      email: "ahmed.rayyan@noon.com",
+      date: "2019-03-16T01:09:56.936Z",
+      country: "Saudi Arabia",
+      company: "Noon",
     },
     {
       name: "Sara Gaylord I",

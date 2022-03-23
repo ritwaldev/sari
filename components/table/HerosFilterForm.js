@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 
 import Countries from "./Countries";
 
+import { herosContext } from "./Table";
+
 const HerosFilterForm = ({
-  heros,
   handleFormHeight,
   handleFilters,
   filters,
@@ -14,6 +15,8 @@ const HerosFilterForm = ({
   const herosFilterForm = useRef();
 
   const countrySelectRef = useRef();
+
+  const heros = useContext(herosContext);
 
   useEffect(() => {
     if (heros.length !== 0) {
