@@ -82,8 +82,8 @@ const HerosFilterForm = ({
                   countrySelectRef={countrySelectRef}
                   title={field.title}
                   api={field.api}
-                  value={filters[field.title]}
                   handleFilters={handleFilters}
+                  filters={filters}
                 />
               )}
             </div>

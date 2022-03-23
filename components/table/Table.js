@@ -45,7 +45,7 @@ const Table = ({ query }) => {
 
   // Handle query params on first page load
   useEffect(() => {
-    handleQuery(query);
+    handleQuery();
 
     if (!query) {
       setFilteredHeros(heros);
@@ -53,7 +53,7 @@ const Table = ({ query }) => {
   }, [heros]);
 
   // Handle initial query params
-  function handleQuery(query) {
+  function handleQuery() {
     let newQuery = {};
     for (let key in query) {
       if (allowedFilters.includes(key)) {
@@ -86,7 +86,7 @@ const Table = ({ query }) => {
       }
     }
 
-    router.push({ query: newQueryParams });
+    router.push({ query: newQueryParams }, undefined, { shallow: true });
   }, [queryParams]);
 
   // Fires on filters input change, updates filters state and queryParams state

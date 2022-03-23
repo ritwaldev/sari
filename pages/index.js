@@ -35,8 +35,9 @@ const heros = ({ query }) => {
 
 export default heros;
 
-export const getServerSideProps = async ({ req, query }) => {
+export async function getServerSideProps(context) {
+  const { query } = context;
   return {
     props: { query },
   };
-};
+}
