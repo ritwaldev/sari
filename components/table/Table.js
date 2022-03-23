@@ -148,22 +148,42 @@ const Table = ({ query }) => {
   }
 
   // sort heros by name
-  function sortHeros() {
-    const tempSortedHeros = [...sortedHeros].sort((a, b) => {
-      let an = a.name.toLowerCase();
-      let bn = b.name.toLowerCase();
+  let tempSortedHeros, an, bn;
+  function sortHerosAsc() {
+    tempSortedHeros = [...sortedHeros].sort((a, b) => {
+      an = a.name.split(" ", 2)[0].toLowerCase();
+      bn = b.name.split(" ", 2)[0].toLowerCase();
 
-      if ((an < bn && !sortingDirection) || (an > bn && sortingDirection)) {
+      if (an < bn) {
+        return -1;
+      }
+      if (an > bn) {
         return 1;
       }
-      if ((an > bn && !sortingDirection) || (an > bn && sortingDirection)) {
+      return 0;
+    });
+
+    sortName(tempSortedHeros);
+  }
+
+  function sortHerosDsc() {
+    tempSortedHeros = [...sortedHeros].sort((a, b) => {
+      an = a.name.split(" ", 2)[0].toLowerCase();
+      bn = b.name.split(" ", 2)[0].toLowerCase();
+
+      if (an < bn) {
+        return 1;
+      }
+      if (an > bn) {
         return -1;
       }
       return 0;
     });
 
-    console.log(tempSortedHeros);
+    sortName(tempSortedHeros);
+  }
 
+  function sortName(tempSortedHeros) {
     setSortingDirection((sortDir) => !sortDir);
 
     setSortedHeros(tempSortedHeros);
@@ -181,7 +201,8 @@ const Table = ({ query }) => {
       <HerosTable
         filteredHeros={filteredHeros}
         loadingData={loadingData}
-        sortHeros={sortHeros}
+        sortHerosAsc={sortHerosAsc}
+        sortHerosDsc={sortHerosDsc}
         sortingDirection={sortingDirection}
       />
     </>

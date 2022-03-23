@@ -1,7 +1,8 @@
 const HerosTable = ({
   filteredHeros,
   loadingData,
-  sortHeros,
+  sortHerosAsc,
+  sortHerosDsc,
   sortingDirection,
 }) => {
   return (
@@ -17,7 +18,7 @@ const HerosTable = ({
                 Name
                 {sortingDirection && (
                   <svg
-                    onClick={sortHeros}
+                    onClick={sortHerosAsc}
                     width="16"
                     height="16"
                     fill="currentColor"
@@ -29,7 +30,7 @@ const HerosTable = ({
                 )}
                 {!sortingDirection && (
                   <svg
-                    onClick={sortHeros}
+                    onClick={sortHerosDsc}
                     width="16"
                     height="16"
                     fill="currentColor"
